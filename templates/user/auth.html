@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <!-- Title Page -->
+	<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(/static/images/heading-pages-06.jpg);">
+		<h2 class="l-text2 t-center">
+			Contact
+		</h2>
+	</section>
+
+	<!-- content page -->
+	<section class="bgwhite p-t-66 p-b-60">
+		<div class="container">
+			<div class="row">
+                <div class="col-md-4 p-b-30 m-auto banner-auth p-0 mr-0" style="--banner-auth-url: url('/static/images/users/auth.jpg')">
+                    <div class="row m-auto w-100" style="vertical-align: middle; margin-top: 20% !important;">
+                        <div class="col-lg-12 my-auto m-auto">
+                            <h4 class="text-light text-1 m-auto">Les't Get</h4>
+                            <h1 class="text-light text-2 m-auto">Your Wear</h1>
+                        </div>
+                        <div class="col-lg-12 mt-2">
+                            <span class="button_login" id="button_login">Log In</span> 
+                            <span class="text-light">|</span>
+                            <span class="button_register" id="button_register">Register</span>
+                        </div>
+                    </div>
+                </div>
+				<div class="col-md-6 p-b-30 m-auto p-0 ml-0 wrap_form" id="wrap_form" mode="{{mode}}" style="position: relative;">
+					<form class="leave-comment form_register" action="{% url 'user:register_post'  %}" method="POST">
+                        {% csrf_token %}
+                        
+                        <h4 class="m-text26 ml-0 pl-0 p-b-36 p-t-15">
+							Register
+						</h4>
+
+						<div class="bo4 of-hidden size15 m-b-20">
+							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="username" placeholder="Username" required>
+						</div>
+
+						<div class="bo4 of-hidden size15 m-b-20">
+							<input class="sizefull s-text7 p-l-22 p-r-22" type="email" name="email" placeholder="Email" required>
+						</div>
+
+						<div class="bo4 of-hidden size15 m-b-20">
+							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="name" placeholder="Name" required>
+						</div>
+
+						<div class="bo4 of-hidden size15 m-b-20">
+							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="full_name" placeholder="Full Name" required>
+                        </div>
+
+						<div class="bo4 of-hidden size15 m-b-20">
+							<input class="sizefull s-text7 p-l-22 p-r-22" type="password" name="password" placeholder="Password" required>
+                        </div>
+                        
+						<div class="bo4 of-hidden size15 m-b-20">
+							<input class="sizefull s-text7 p-l-22 p-r-22" type="number" name="phone" placeholder="Phone Number" required>
+						</div>
+
+						<div class="w-size25">
+							<button type="submit" class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4">
+								Sign Up
+							</button>
+						</div>
+                    </form>
+                    <form class="leave-comment form_login" action="{% url 'user:login_post' %}" method="POST">
+                        {% csrf_token %}
+
+						<h4 class="m-text26 ml-0 pl-0 p-b-36 p-t-15">
+							Log In
+						</h4>
+
+						<div class="bo4 of-hidden size15 m-b-20">
+							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="username" placeholder="Username">
+						</div>
+
+						<div class="bo4 of-hidden size15 m-b-20">
+							<input class="sizefull s-text7 p-l-22 p-r-22" type="password" name="password" placeholder="Password">
+						</div>
+
+						<div class="w-size25">
+							<button type="submit" class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4">
+								Sign In
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock body %}
+
+{% block asset %}
+    <link rel="stylesheet" href="/static/css/users/custom.css">
+    <script src="/static/js/users/custom.js"></script>
+{% endblock asset %}

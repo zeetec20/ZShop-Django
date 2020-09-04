@@ -1,0 +1,18 @@
+.btn-logout, .btn-login, .btn-register, .btn-black {
+    color: white !important;
+    background-color: #222222 !important;
+}
+
+.btn-logout:hover, .btn-login:hover, .btn-register:hover {
+    transition: 0.4s;
+    background-color: #e65540;
+}
+
+.profile_name {
+    text-align: center;
+    color: #222222;
+}
+
+.modal-content {
+    border-color: #22222241;
+}

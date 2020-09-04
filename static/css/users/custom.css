@@ -1,0 +1,34 @@
+.banner-auth{
+    background-image: var(--banner-auth-url);
+    background-position: center;
+    background-size: cover;
+    height: 600px;
+}
+
+.banner-auth .text-1{
+    vertical-align: middle;
+}
+
+.banner-auth .text-2 {
+    vertical-align: middle;
+}
+
+.button_login, .button_register {
+    cursor: pointer;
+    color: white;
+}
+
+.button_login:hover, .button_register:hover {
+    transition: 0.4s;
+    color: #e65540;
+}
+
+.form_login, .form_register{
+    height: 550px;
+}
+
+.wrap_form {
+    height: 550px;
+    overflow: hidden;
+    scroll-behavior: smooth;
+}
