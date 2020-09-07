@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import CustomUser
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
+import uuid
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
@@ -63,4 +64,5 @@ class RegisterForm(forms.ModelForm):
             phone=phone
         )
         user.is_active = False
+        user.verification_code = uuid.uuid1().hex[:8]
         return user.save()

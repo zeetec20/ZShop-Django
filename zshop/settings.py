@@ -1,6 +1,9 @@
 from pathlib import Path
 import environ
 
+env = environ.Env()
+environ.Env.read_env()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
@@ -14,7 +17,7 @@ SECRET_KEY = '2$zfa=_zd@w5)5r#(0qqhq&i6b^)b-wcegpi@vw-r=4vo!8r%c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -115,3 +118,12 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR/"static"
 ]
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = 'jusles363@gmail.com'

@@ -5,6 +5,9 @@ from django.contrib.auth import login, authenticate, logout
 from .forms import RegisterForm
 from django.urls import reverse
 from django.contrib import messages
+from django.contrib.auth import get_user_model
+from zshop.Email import Email
+from zshop.settings import ALLOWED_HOSTS
 
 class Auth(View):
     mode = ''
@@ -42,10 +45,16 @@ class Auth(View):
             form.saveUserClient()
             target_redirect = reverse('user:auth')
             messages.add_message(request, messages.SUCCESS, 'Success Register', extra_tags='register')
+            email_user = form.cleaned_data.get('email')
+            User = get_user_model()
+            user = User.objects.filter(username=form.cleaned_data.get('username'))
+            message_email = 'http://{}:8000/user/verification/{}/{}'.format(ALLOWED_HOSTS[0], user[0].username, user[0].verification_code)
+            email = Email(subject='Click link to verification your account', message=message_email, email='jusles363@gmail.com', target_list=[email_user])
+            email.send()
             return redirect('{}{}'.format(target_redirect, '?mode=register'))
         else:
             target_redirect = reverse('user:auth')
-            messages.add_message(request, messages.ERROR, 'Failed Log In', extra_tags='register')
+            messages.add_message(request, messages.ERROR, 'Failed Register', extra_tags='register')
             return redirect('{}{}'.format(target_redirect, '?mode=register'))
 
     def logout(self, request):
@@ -60,3 +69,18 @@ class Auth(View):
             return self.register(request)
         if (self.mode == 'logout'):
             return self.logout(request)
+
+class User_Verification(View):
+    def get(self, request, username='', code=''):
+        if (request.user.is_authenticated): raise Http404
+        User = get_user_model()
+        user = User.objects.filter(username=username, verification_code=code)
+        if (len(user) == 0):
+            messages.add_message(request, messages.ERROR, 'Failed verivication {}'.format(user.username), extra_tags='user_verification')
+            return redirect('store:index')
+        else:
+            user = user[0]
+            user.is_active = True;
+            user.save()
+            messages.add_message(request, messages.SUCCESS, 'Success verivication {}'.format(user.username), extra_tags='user_verification')
+            return redirect('store:index')
